@@ -1,3 +1,5 @@
+import singleton.EagerSingleton;
+import singleton.EnumSingleton;
 import singleton.LazySingleton;
 import singleton.SerializableSingleton;
 
@@ -50,6 +52,10 @@ public class Main {
         LazySingleton instance = LazySingleton.getInstance();
         System.out.println("Reflected hashcode singleton: " + lazySingleton.hashCode());
         System.out.println("Singleton instance: " + instance.hashCode());
+
+
+        //solution
+        EnumSingleton.INSTANCE.doSomething();
 
 
     }
