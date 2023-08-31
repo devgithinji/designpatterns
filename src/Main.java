@@ -1,12 +1,16 @@
+import singleton.LazySingleton;
 import singleton.SerializableSingleton;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
 //        LazySingleton lazySingleton = LazySingleton.getInstance();
 //        System.out.println(lazySingleton.getName("dennis"));
-        exampleSerialization();
+//        exampleSerialization();
+        exampleReflection();
     }
 
     private static void exampleSerialization() throws IOException, ClassNotFoundException {
@@ -34,5 +38,19 @@ public class Main {
 
         System.out.println("SerilaizableSingleton Object 1 :" + serializableSingleton.hashCode());
         System.out.println("SerilaizableSingleton Object 2 :" + deserializedInstance.hashCode());
+    }
+
+
+    private static void exampleReflection() throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor[] constructors = LazySingleton.class.getDeclaredConstructors();
+        //knowing only one constructor taking it using index
+        Constructor constructor = constructors[0];
+        constructor.setAccessible(true);
+        LazySingleton lazySingleton = (LazySingleton) constructor.newInstance();
+        LazySingleton instance = LazySingleton.getInstance();
+        System.out.println("Reflected hashcode singleton: " + lazySingleton.hashCode());
+        System.out.println("Singleton instance: " + instance.hashCode());
+
+
     }
 }
