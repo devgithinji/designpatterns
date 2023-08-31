@@ -10,5 +10,7 @@ public class Driver {
                 .extraCheese(true)
                 .size("LARGE")
                 .build();
+
+        Meal meal = new MealDirector(new VegMealBuilder()).prepareMeal();
     }
 }
